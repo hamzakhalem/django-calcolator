@@ -7,4 +7,20 @@ def index(request):
 
 def submitquery(request):
     q = request.GET['query']
-    return HttpResponse(q)
+    print(q)
+    # result = eval(q)
+    # print(result)
+    try:
+        result = eval(q)
+        context = {
+            "q" : q,
+            "result" : result,
+            "error" : False
+        }
+        return render(request, "index.html", context = context)
+    except:
+       context = {
+            "error" : True
+        }
+       return render(request, "index.html", context = context)
+    
